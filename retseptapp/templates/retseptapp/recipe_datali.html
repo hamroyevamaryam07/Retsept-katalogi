@@ -1,0 +1,131 @@
+```html
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#173d2b">
+    <title>{{ retsept.nom|default:"Mazali retsept" }} — Mazali</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'retseptapp/style.css' %}">
+
+    <style>
+        .detail-page {
+            width: min(900px, 92%);
+            margin: 45px auto 70px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #244b38;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .detail-title {
+            font-family: "Playfair Display", Georgia, serif;
+            color: #244b38;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 22px;
+        }
+
+        .detail-image {
+            width: 100%;
+            max-height: 480px;
+            object-fit: cover;
+            border-radius: 20px;
+            display: block;
+            margin-bottom: 28px;
+        }
+
+        .detail-section {
+            background: #fffefa;
+            border: 1px solid #e8e2d6;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+
+        .detail-section h2 {
+            font-family: "Playfair Display", Georgia, serif;
+            color: #244b38;
+            margin-top: 0;
+        }
+
+        .detail-text {
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+            line-height: 1.9;
+            color: #29372e;
+        }
+
+        .detail-meta {
+            padding-top: 12px;
+            border-top: 1px solid #e8e2d6;
+        }
+
+        @media (max-width: 600px) {
+            .detail-page {
+                margin-top: 25px;
+            }
+
+            .detail-section {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a class="logo" href="/">Mazali<span>.</span></a>
+        <a class="nav-button" href="/#retseptlar">Barcha retseptlar ↗</a>
+    </header>
+
+    <main class="detail-page">
+        <a class="back-link" href="/#retseptlar">← Retseptlar sahifasiga qaytish</a>
+
+        <h1 class="detail-title">
+            {{ retsept.nom|default:"Nomsiz retsept" }}
+        </h1>
+
+        {% if retsept.rasm %}
+            <img
+                class="detail-image"
+                src="{{ retsept.rasm }}"
+                alt="{{ retsept.nom|default:'Mazali taom' }}"
+            >
+        {% endif %}
+
+        <section class="detail-section">
+            <h2>Taom haqida</h2>
+            <p class="detail-text">{{ retsept.tavsif|default:"Tavsif kiritilmagan." }}</p>
+
+            <div class="detail-meta">
+                <p><strong>Taom turi:</strong> {{ retsept.tur|default:"Boshqa" }}</p>
+                <p><strong>Tayyorlash vaqti:</strong> {{ retsept.vaqt|default:"Ko‘rsatilmagan" }}</p>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <h2>Masalliqlar</h2>
+            <div class="detail-text">{{ retsept.masalliqlar|default:"Masalliqlar hali kiritilmagan." }}</div>
+        </section>
+
+        <section class="detail-section">
+            <h2>Tayyorlash usuli</h2>
+            <div class="detail-text">{{ retsept.tayyorlash_usuli|default:"Tayyorlash usuli hali kiritilmagan." }}</div>
+        </section>
+
+        <a class="back-link" href="/#retseptlar">← Boshqa retseptlarni ko‘rish</a>
+    </main>
+
+</body>
+</html>
+```
